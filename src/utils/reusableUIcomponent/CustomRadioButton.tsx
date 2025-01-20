@@ -14,6 +14,7 @@ const CustomRadioButton: React.FC<CustomRadioButtonProps> = ({ label, value, sel
 
   return (
     <TouchableOpacity
+      testID={`radio-button-${value}`}
       style={styles.radioContainer}
       onPress={() => onSelect(value)}
     >
@@ -26,3 +27,4 @@ const CustomRadioButton: React.FC<CustomRadioButtonProps> = ({ label, value, sel
 };
 
 export default CustomRadioButton;
+

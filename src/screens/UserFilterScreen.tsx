@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TextInput, ActivityIndicator } from 'react-native';
 import { useQuery } from '@apollo/client';
-import { LIST_ZELLER_CUSTOMERS } from '../graphql/queries';
+import { LIST_ZELLER_CUSTOMERS } from '../graphql/queries'; 
 import { styles } from './UserFilterScreen.styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomRadioButton from '../utils/reusableUIcomponent/CustomRadioButton';
 import { Avatar } from 'react-native-paper';
 
-const UserFilterScreen = () => {
+const UserFilterScreen: React.FC = () => {
   const [selectedRole, setSelectedRole] = useState<string>('ADMIN');
-  const [userItems, setUserItems] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [userItems, setUserItems] = useState<Array<{ id: string; name: string; role: string }>>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const { data, loading, error, refetch } = useQuery(LIST_ZELLER_CUSTOMERS, {
-    variables: {
-      filter: selectedRole ? { role: { eq: selectedRole } } : undefined,
-    },
-    fetchPolicy: 'network-only',
-  });
-
+  const { data, loading, error, refetch } = useQuery(
+    LIST_ZELLER_CUSTOMERS, 
+    {
+      variables: {
+        filter: selectedRole ? { role: { eq: selectedRole } } : undefined,
+      },
+      fetchPolicy: 'network-only',
+    }
+  );
 
   const handleFilterChange = (role: string | null) => {
-    setSelectedRole(role);
+    setSelectedRole(role || 'ADMIN'); 
     refetch({
-      filter: { role: { eq: role?.toUpperCase() } },
+      filter: { role: { eq: role?.toUpperCase() || 'ADMIN' } },
     })
       .then((result) => {
         setUserItems(result.data?.listZellerCustomers?.items || []);
@@ -35,7 +37,6 @@ const UserFilterScreen = () => {
 
   useEffect(() => {
     if (data?.listZellerCustomers?.items) {
-      console.log('DATA', data.listZellerCustomers)
       setUserItems(data.listZellerCustomers.items);
     }
   }, [data]);
@@ -44,7 +45,7 @@ const UserFilterScreen = () => {
     const nameParts = name.split(' ');
     return nameParts.map((part) => part[0]).join('').toUpperCase();
   };
-  
+
   const filteredUsers = userItems.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -54,7 +55,7 @@ const UserFilterScreen = () => {
       <View style={styles.container}>
         {loading ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" />
+            <ActivityIndicator size="large" testID="loading-indicator" />
           </View>
         ) : error ? (
           <Text style={styles.errorText}>Error: {error.message}</Text>
