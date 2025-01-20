@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { MockedProvider } from '@apollo/client/testing';
-import UserFilterScreen from './UserFilterScreen'; // Adjust the path as needed
+import UserFilterScreen from './UserFilterScreen';
 import { LIST_ZELLER_CUSTOMERS } from '../graphql/queries';
 
 const mockData = {
