@@ -1,7 +1,8 @@
 import React from 'react';
 import { ApolloProvider } from '@apollo/client';
 import client from './src/graphql/apolloClient';
-import UserFilterScreen from './src/screens/UserFilterScreen';
+import UserFilterScreen from './src/screens/UserFilter/UserFilterScreen';
+
 
 
 const App = () => {
