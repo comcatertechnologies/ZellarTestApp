@@ -1,0 +1,11 @@
+export const APP_NAME = "My Application";
+export const WELCOME_MESSAGE = `Welcome to ${APP_NAME}!`;
+export const LOGIN_BUTTON_TEXT = "Login";
+export const REGISTER_BUTTON_TEXT = "Register";
+export const EMAIL_FIELD_PLACEHOLDER = "Enter your email";
+export const PASSWORD_FIELD_PLACEHOLDER = "Enter your password";
+export const INVALID_CREDENTIALS_MESSAGE = "Invalid email or password";
+export const SUCCESSFUL_LOGIN_MESSAGE = "Login successful!";
+export const ERROR_MESSAGE = "An error occurred.";
+export const DASHBOARD ="My Dashboard";
+export const QUICK_QUIZ ="Quick Quiz";
